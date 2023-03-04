@@ -36,7 +36,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(7, 7);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 30);
+            this.button1.Size = new System.Drawing.Size(100, 30);
             this.button1.TabIndex = 0;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = true;
@@ -51,6 +51,7 @@
             this.Controls.Add(this.button1);
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "Form1";
+            this.Text = "Заметки";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
         }
