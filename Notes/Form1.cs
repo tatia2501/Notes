@@ -2,67 +2,90 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Notes.Services;
 
 namespace Notes
 {
     public partial class Form1 : Form
     {
-        private int _noteHeight = 120;
-        private int _noteWidth = 150;
+        private readonly INoteService _service;
+
+        private const int NoteHeight = 60;
+        private const int NoteWidth = 200;
         private int _notePositionX = 20;
         private int _notePositionY = 70;
-        private int _notePositionXChange = 180;
-        private int _notePositionYChange = 150;
-        private int _formWidth = 1000;
-        private int _initialXLocation = 20;
-        
+        private const int FirstColumnPositionX = 20;
+        private const int SecondColumnPositionX = 250;
+        private const int NotePositionYChange = 80;
+
         public Form1()
         {
             InitializeComponent();
+            _service = new NoteService();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Button newBtn = new Button();
-            newBtn.Text = "Новая заметка";
-            newBtn.Size = new Size(_noteWidth, _noteHeight);
-            newBtn.Location = new Point(_notePositionX, _notePositionY);
-            newBtn.Click += new EventHandler(button2_Click);
-            newBtn.UseVisualStyleBackColor = false;
-            this.Controls.Add(newBtn);
+            _notePositionX = SecondColumnPositionX;
+            _notePositionY -= NotePositionYChange;
+            
+            var initialNotes = _service.GetInitialNotes();
+            foreach (var initialNote in initialNotes)
+            {
+                Button newBtn = new Button();
+                newBtn.Text = initialNote.Title;
+                newBtn.Size = new Size(NoteWidth, NoteHeight);
+                newBtn.Tag = initialNote.Id;
+                newBtn.Click += new EventHandler(button2_Click);
+                
+                if (_notePositionX == FirstColumnPositionX)
+                {
+                    newBtn.Location = new Point(SecondColumnPositionX, _notePositionY);
+                    _notePositionX = SecondColumnPositionX;
+                }
+                else
+                {
+                    newBtn.Location = new Point(FirstColumnPositionX, _notePositionY + NotePositionYChange);
+                    _notePositionX = FirstColumnPositionX;
+                    _notePositionY += NotePositionYChange;
+                }
+                
+                this.Controls.Add(newBtn);
+            } 
         }
         
         private void button1_Click(object sender, EventArgs e)
         {
             Button newBtn = new Button();
             newBtn.Text = "Новая заметка";
-            newBtn.Size = new Size(_noteWidth, _noteHeight);
-            if (_notePositionX + _notePositionXChange < _formWidth)
+            newBtn.Size = new Size(NoteWidth, NoteHeight);
+            newBtn.Click += new EventHandler(button2_Click);
+
+            if (_notePositionX == FirstColumnPositionX)
             {
-                newBtn.Location = new Point(_notePositionX + _notePositionXChange, _notePositionY);
-                _notePositionX += _notePositionXChange;
+                newBtn.Location = new Point(SecondColumnPositionX, _notePositionY);
+                _notePositionX = SecondColumnPositionX;
             }
             else
             {
-                newBtn.Location = new Point(_initialXLocation, _notePositionY + _notePositionYChange);
-                _notePositionX = _initialXLocation;
-                _notePositionY += _notePositionYChange;
+                newBtn.Location = new Point(FirstColumnPositionX, _notePositionY + NotePositionYChange);
+                _notePositionX = FirstColumnPositionX;
+                _notePositionY += NotePositionYChange;
             }
-            newBtn.Click += new EventHandler(button2_Click);
-            newBtn.UseVisualStyleBackColor = false;
             this.Controls.Add(newBtn);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Editor newForm = new Editor(this);
+            newForm.InboxData = (int) ((Control)sender).Tag;
             newForm.Show();
         }
-        
     }
-}
+} 
