@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Notes.Services;
 
 namespace Notes
 {
     public partial class Form1 : Form
     {
-        SqlConnection connection;
-        SqlCommand command;
-        
+        private readonly INoteService _service;
+
         private int _noteHeight = 60;
         private int _noteWidth = 200;
         private int _notePositionX = 20;
@@ -27,33 +27,14 @@ namespace Notes
         public Form1()
         {
             InitializeComponent();
-            
-            connection = new SqlConnection();
-            connection.ConnectionString = @"Data Source=LAPTOP-02135ROM\SQLEXPRESS;Initial Catalog=Notes;Integrated Security=SSPI;";
-            command = new SqlCommand();
-            command.Connection = connection;
-            command.CommandType = CommandType.Text;
+            _service = new NoteService();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Button newBtn = new Button();
-            string title="55";
 
-            command.CommandText = "select * from NotesText where ip=0;";
-            connection.Open();
-            SqlDataReader reader= command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    title = reader.GetString(1);
-                    var text = reader.GetString(2);
-                }
-            }
-            connection.Close();
-
-            newBtn.Text = title;
+            newBtn.Text = _service.FirstOneTitle();
             newBtn.Size = new Size(_noteWidth, _noteHeight);
             newBtn.Location = new Point(_notePositionX, _notePositionY);
             newBtn.Click += new EventHandler(button2_Click);

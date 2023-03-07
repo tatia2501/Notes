@@ -2,6 +2,6 @@
 {
     public interface INoteService
     {
-        
+        string FirstOneTitle();
     }
 }
