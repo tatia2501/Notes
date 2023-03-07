@@ -12,14 +12,13 @@ namespace Notes
 {
     public partial class Form1 : Form
     {
-        private int _noteHeight = 120;
-        private int _noteWidth = 150;
+        private int _noteHeight = 60;
+        private int _noteWidth = 200;
         private int _notePositionX = 20;
         private int _notePositionY = 70;
-        private int _notePositionXChange = 180;
-        private int _notePositionYChange = 150;
-        private int _formWidth = 1000;
-        private int _initialXLocation = 20;
+        private int _firstColumnPositionX = 20;
+        private int _secondColumnPositionX = 250;
+        private int _notePositionYChange = 80;
         
         public Form1()
         {
@@ -42,15 +41,16 @@ namespace Notes
             Button newBtn = new Button();
             newBtn.Text = "Новая заметка";
             newBtn.Size = new Size(_noteWidth, _noteHeight);
-            if (_notePositionX + _notePositionXChange < _formWidth)
+            
+            if (_notePositionX == _firstColumnPositionX)
             {
-                newBtn.Location = new Point(_notePositionX + _notePositionXChange, _notePositionY);
-                _notePositionX += _notePositionXChange;
+                newBtn.Location = new Point(_secondColumnPositionX, _notePositionY);
+                _notePositionX = _secondColumnPositionX;
             }
             else
             {
-                newBtn.Location = new Point(_initialXLocation, _notePositionY + _notePositionYChange);
-                _notePositionX = _initialXLocation;
+                newBtn.Location = new Point(_firstColumnPositionX, _notePositionY + _notePositionYChange);
+                _notePositionX = _firstColumnPositionX;
                 _notePositionY += _notePositionYChange;
             }
             newBtn.Click += new EventHandler(button2_Click);
@@ -65,4 +65,4 @@ namespace Notes
         }
         
     }
-}
+} 
