@@ -1,7 +1,11 @@
-﻿namespace Notes.Services
+﻿using System.Collections.Generic;
+using Notes.Entities;
+
+namespace Notes.Services
 {
     public interface INoteService
     {
-        string FirstOneTitle();
+        List<NoteModel> GetInitialNotes();
+
     }
 }

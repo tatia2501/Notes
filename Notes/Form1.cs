@@ -32,14 +32,31 @@ namespace Notes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Button newBtn = new Button();
-
-            newBtn.Text = _service.FirstOneTitle();
-            newBtn.Size = new Size(_noteWidth, _noteHeight);
-            newBtn.Location = new Point(_notePositionX, _notePositionY);
-            newBtn.Click += new EventHandler(button2_Click);
-            newBtn.UseVisualStyleBackColor = false;
-            this.Controls.Add(newBtn);
+            _notePositionX = _secondColumnPositionX;
+            _notePositionY -= _notePositionYChange;
+            
+            var initialNotes = _service.GetInitialNotes();
+            foreach (var initialNote in initialNotes)
+            {
+                Button newBtn = new Button();
+                newBtn.Text = initialNote.Title;
+                newBtn.Size = new Size(_noteWidth, _noteHeight);
+                newBtn.Click += new EventHandler(button2_Click);
+                
+                if (_notePositionX == _firstColumnPositionX)
+                {
+                    newBtn.Location = new Point(_secondColumnPositionX, _notePositionY);
+                    _notePositionX = _secondColumnPositionX;
+                }
+                else
+                {
+                    newBtn.Location = new Point(_firstColumnPositionX, _notePositionY + _notePositionYChange);
+                    _notePositionX = _firstColumnPositionX;
+                    _notePositionY += _notePositionYChange;
+                }
+                
+                this.Controls.Add(newBtn);
+            } 
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -47,7 +64,8 @@ namespace Notes
             Button newBtn = new Button();
             newBtn.Text = "Новая заметка";
             newBtn.Size = new Size(_noteWidth, _noteHeight);
-            
+            newBtn.Click += new EventHandler(button2_Click);
+
             if (_notePositionX == _firstColumnPositionX)
             {
                 newBtn.Location = new Point(_secondColumnPositionX, _notePositionY);
@@ -59,8 +77,6 @@ namespace Notes
                 _notePositionX = _firstColumnPositionX;
                 _notePositionY += _notePositionYChange;
             }
-            newBtn.Click += new EventHandler(button2_Click);
-            newBtn.UseVisualStyleBackColor = false;
             this.Controls.Add(newBtn);
         }
 

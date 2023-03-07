@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using Notes.Entities;
 
 namespace Notes.Repositories
 {
@@ -16,22 +18,24 @@ namespace Notes.Repositories
             command.CommandType = CommandType.Text;
         }
 
-        public string FirstOneTitle()
+        public List<NoteModel> GetInitialNotes()
         {
-            string title = "";
-            command.CommandText = "select * from NotesText where ip=0;";
+            var _initialNotes = new List<NoteModel>();
+            command.CommandText = "select * from NotesText";
             connection.Open();
             SqlDataReader reader= command.ExecuteReader();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    title = reader.GetString(1);
-                    var text = reader.GetString(2);
+                    var newNote = new NoteModel();
+                    newNote.Title = reader.GetString(1);
+                    newNote.Text = reader.GetString(2);
+                    _initialNotes.Add(newNote);
                 }
             }
             connection.Close();
-            return title;
+            return _initialNotes;
         }
     }
 }

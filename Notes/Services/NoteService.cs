@@ -1,4 +1,6 @@
-﻿using Notes.Repositories;
+﻿using System.Collections.Generic;
+using Notes.Entities;
+using Notes.Repositories;
 
 namespace Notes.Services
 {
@@ -10,9 +12,10 @@ namespace Notes.Services
         {
             _reporitory = new NoteReporitory();
         }
-        public string FirstOneTitle()
+
+        public List<NoteModel> GetInitialNotes()
         {
-            return _reporitory.FirstOneTitle();
+            return _reporitory.GetInitialNotes();
         }
     }
 }
