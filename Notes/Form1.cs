@@ -62,10 +62,11 @@ namespace Notes
         
         private void button1_Click(object sender, EventArgs e)
         {
-            _service.InsertNewNote("Новая заметка", "Текст заметки");
+            var newId = _service.InsertNewNote("Новая заметка", "Текст заметки");
             Button newBtn = new Button();
             newBtn.Text = "Новая заметка";
             newBtn.Size = new Size(NoteWidth, NoteHeight);
+            newBtn.Tag = newId;
             newBtn.Click += new EventHandler(button2_Click);
 
             if (_notePositionX == FirstColumnPositionX)

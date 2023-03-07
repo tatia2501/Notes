@@ -24,9 +24,9 @@ namespace Notes.Services
 
         }
 
-        public void InsertNewNote(string title, string text)
+        public int InsertNewNote(string title, string text)
         {
-            _reporitory.InsertNewNote(title, text);
+            return _reporitory.InsertNewNote(title, text);
         }
     }
 }

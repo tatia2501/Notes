@@ -59,7 +59,7 @@ namespace Notes.Repositories
             return newNote;
         }
         
-        public void InsertNewNote(string title, string text)
+        public int InsertNewNote(string title, string text)
         {
             command.CommandText = "select count(1) from NotesText";
             connection.Open();
@@ -70,6 +70,7 @@ namespace Notes.Repositories
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+            return num;
         }
     }
 }

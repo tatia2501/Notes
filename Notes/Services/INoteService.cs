@@ -7,6 +7,6 @@ namespace Notes.Services
     {
         List<NoteModel> GetInitialNotes();
         NoteModel GetNote(int id);
-        void InsertNewNote(string title, string text);
+        int InsertNewNote(string title, string text);
     }
 }
