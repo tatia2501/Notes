@@ -62,6 +62,7 @@ namespace Notes
         
         private void button1_Click(object sender, EventArgs e)
         {
+            _service.InsertNewNote("Новая заметка", "Текст заметки");
             Button newBtn = new Button();
             newBtn.Text = "Новая заметка";
             newBtn.Size = new Size(NoteWidth, NoteHeight);

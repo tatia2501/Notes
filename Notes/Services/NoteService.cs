@@ -23,5 +23,10 @@ namespace Notes.Services
             return _reporitory.GetNote(id);
 
         }
+
+        public void InsertNewNote(string title, string text)
+        {
+            _reporitory.InsertNewNote(title, text);
+        }
     }
 }

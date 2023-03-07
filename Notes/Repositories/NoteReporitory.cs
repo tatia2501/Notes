@@ -58,5 +58,18 @@ namespace Notes.Repositories
             connection.Close();
             return newNote;
         }
+        
+        public void InsertNewNote(string title, string text)
+        {
+            command.CommandText = "select count(1) from NotesText";
+            connection.Open();
+            var num = (int) command.ExecuteScalar();
+            connection.Close();
+            
+            command.CommandText = $"insert into NotesText(id, Title, Text) values ({num}, '{title}', '{text}');";
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }
