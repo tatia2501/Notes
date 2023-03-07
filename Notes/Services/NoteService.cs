@@ -17,5 +17,11 @@ namespace Notes.Services
         {
             return _reporitory.GetInitialNotes();
         }
+
+        public NoteModel GetNote(int id)
+        {
+            return _reporitory.GetNote(id);
+
+        }
     }
 }

@@ -16,14 +16,14 @@ namespace Notes
     {
         private readonly INoteService _service;
 
-        private int _noteHeight = 60;
-        private int _noteWidth = 200;
+        private const int NoteHeight = 60;
+        private const int NoteWidth = 200;
         private int _notePositionX = 20;
         private int _notePositionY = 70;
-        private int _firstColumnPositionX = 20;
-        private int _secondColumnPositionX = 250;
-        private int _notePositionYChange = 80;
-        
+        private const int FirstColumnPositionX = 20;
+        private const int SecondColumnPositionX = 250;
+        private const int NotePositionYChange = 80;
+
         public Form1()
         {
             InitializeComponent();
@@ -32,27 +32,28 @@ namespace Notes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _notePositionX = _secondColumnPositionX;
-            _notePositionY -= _notePositionYChange;
+            _notePositionX = SecondColumnPositionX;
+            _notePositionY -= NotePositionYChange;
             
             var initialNotes = _service.GetInitialNotes();
             foreach (var initialNote in initialNotes)
             {
                 Button newBtn = new Button();
                 newBtn.Text = initialNote.Title;
-                newBtn.Size = new Size(_noteWidth, _noteHeight);
+                newBtn.Size = new Size(NoteWidth, NoteHeight);
+                newBtn.Tag = initialNote.Id;
                 newBtn.Click += new EventHandler(button2_Click);
                 
-                if (_notePositionX == _firstColumnPositionX)
+                if (_notePositionX == FirstColumnPositionX)
                 {
-                    newBtn.Location = new Point(_secondColumnPositionX, _notePositionY);
-                    _notePositionX = _secondColumnPositionX;
+                    newBtn.Location = new Point(SecondColumnPositionX, _notePositionY);
+                    _notePositionX = SecondColumnPositionX;
                 }
                 else
                 {
-                    newBtn.Location = new Point(_firstColumnPositionX, _notePositionY + _notePositionYChange);
-                    _notePositionX = _firstColumnPositionX;
-                    _notePositionY += _notePositionYChange;
+                    newBtn.Location = new Point(FirstColumnPositionX, _notePositionY + NotePositionYChange);
+                    _notePositionX = FirstColumnPositionX;
+                    _notePositionY += NotePositionYChange;
                 }
                 
                 this.Controls.Add(newBtn);
@@ -63,19 +64,19 @@ namespace Notes
         {
             Button newBtn = new Button();
             newBtn.Text = "Новая заметка";
-            newBtn.Size = new Size(_noteWidth, _noteHeight);
+            newBtn.Size = new Size(NoteWidth, NoteHeight);
             newBtn.Click += new EventHandler(button2_Click);
 
-            if (_notePositionX == _firstColumnPositionX)
+            if (_notePositionX == FirstColumnPositionX)
             {
-                newBtn.Location = new Point(_secondColumnPositionX, _notePositionY);
-                _notePositionX = _secondColumnPositionX;
+                newBtn.Location = new Point(SecondColumnPositionX, _notePositionY);
+                _notePositionX = SecondColumnPositionX;
             }
             else
             {
-                newBtn.Location = new Point(_firstColumnPositionX, _notePositionY + _notePositionYChange);
-                _notePositionX = _firstColumnPositionX;
-                _notePositionY += _notePositionYChange;
+                newBtn.Location = new Point(FirstColumnPositionX, _notePositionY + NotePositionYChange);
+                _notePositionX = FirstColumnPositionX;
+                _notePositionY += NotePositionYChange;
             }
             this.Controls.Add(newBtn);
         }
@@ -83,8 +84,8 @@ namespace Notes
         private void button2_Click(object sender, EventArgs e)
         {
             Editor newForm = new Editor(this);
+            newForm.InboxData = (int) ((Control)sender).Tag;
             newForm.Show();
         }
-        
     }
 } 

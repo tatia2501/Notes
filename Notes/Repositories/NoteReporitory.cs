@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Notes.Entities;
@@ -29,6 +30,7 @@ namespace Notes.Repositories
                 while (reader.Read())
                 {
                     var newNote = new NoteModel();
+                    newNote.Id = reader.GetInt32(0);
                     newNote.Title = reader.GetString(1);
                     newNote.Text = reader.GetString(2);
                     _initialNotes.Add(newNote);
@@ -36,6 +38,25 @@ namespace Notes.Repositories
             }
             connection.Close();
             return _initialNotes;
+        }
+
+        public NoteModel GetNote(int id)
+        {
+            var newNote = new NoteModel();
+            command.CommandText = $"select * from NotesText where id={id};";
+            connection.Open();
+            SqlDataReader reader= command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    newNote.Id = reader.GetInt32(0);
+                    newNote.Title = reader.GetString(1);
+                    newNote.Text = reader.GetString(2);;
+                }
+            }
+            connection.Close();
+            return newNote;
         }
     }
 }
