@@ -81,12 +81,16 @@ namespace Notes
                 _notePositionY += NotePositionYChange;
             }
             this.Controls.Add(newBtn);
+            
+            Editor newForm = new Editor(this);
+            newForm.InboxData = newId;
+            newForm.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Editor newForm = new Editor(this);
-            newForm.InboxData = (int) ((Control)sender).Tag;
+            newForm.InboxData = (Guid) ((Control)sender).Tag;
             newForm.Show();
         }
 

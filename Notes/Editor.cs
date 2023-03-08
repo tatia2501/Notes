@@ -8,8 +8,8 @@ namespace Notes
     {
         private readonly INoteService _service;
         
-        public int InboxData;
-        private int _id;
+        public Guid InboxData;
+        private Guid _id;
         private readonly Form1 _form;
         public Editor()
         {
