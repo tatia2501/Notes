@@ -10,6 +10,7 @@ namespace Notes
         
         public int InboxData;
         private int _id;
+        private readonly Form1 _form;
         public Editor()
         {
             InitializeComponent();
@@ -20,6 +21,7 @@ namespace Notes
         {
             InitializeComponent();
             _service = new NoteService();
+            _form = f;
         }
 
         private void Editor_Load(object sender, EventArgs e)
@@ -34,6 +36,8 @@ namespace Notes
         private void button1_Click(object sender, EventArgs e)
         {
             _service.DeleteNote(_id);
+            _form.UpdateAfterRemoval();
+            Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
