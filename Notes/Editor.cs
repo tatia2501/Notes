@@ -36,12 +36,14 @@ namespace Notes
         private void button1_Click(object sender, EventArgs e)
         {
             _service.DeleteNote(_id);
-            _form.UpdateAfterRemoval();
+            _form.UpdateChanges();
             Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            _service.UpdateNote(_id, textBox1.Text, textBox2.Text);
+            _form.UpdateChanges();
         }
     }
 }

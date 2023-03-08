@@ -33,5 +33,10 @@ namespace Notes.Services
         {
             _reporitory.DeleteNote(id);
         }
+
+        public void UpdateNote(int id, string title, string text)
+        {
+            _reporitory.UpdateNote(id, title, text);
+        }
     }
 }

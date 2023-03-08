@@ -80,5 +80,13 @@ namespace Notes.Repositories
             command.ExecuteNonQuery();
             connection.Close();
         }
+
+        public void UpdateNote(int id, string title, string text)
+        {
+            command.CommandText = $"update NotesText set Title='{title}', Text='{text}' where id={id}";
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }

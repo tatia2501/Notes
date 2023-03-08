@@ -9,5 +9,6 @@ namespace Notes.Services
         NoteModel GetNote(int id);
         int InsertNewNote(string title, string text);
         void DeleteNote(int id);
+        void UpdateNote(int id, string title, string text);
     }
 }
