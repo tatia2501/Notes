@@ -28,5 +28,10 @@ namespace Notes.Services
         {
             return _reporitory.InsertNewNote(title, text);
         }
+
+        public void DeleteNote(int id)
+        {
+            _reporitory.DeleteNote(id);
+        }
     }
 }

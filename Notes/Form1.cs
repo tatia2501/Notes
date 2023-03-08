@@ -89,5 +89,10 @@ namespace Notes
             newForm.InboxData = (int) ((Control)sender).Tag;
             newForm.Show();
         }
+
+        public void UpdateAfterRemoval()
+        {
+            Application.Restart();
+        }
     }
 } 

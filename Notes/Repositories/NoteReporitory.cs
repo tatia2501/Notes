@@ -72,5 +72,13 @@ namespace Notes.Repositories
             connection.Close();
             return num;
         }
+        
+        public void DeleteNote(int id)
+        {
+            command.CommandText = $"delete from NotesText where id={id};";
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }
