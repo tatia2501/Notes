@@ -42,6 +42,7 @@ namespace Notes
 
         private void button2_Click(object sender, EventArgs e)
         {
+            _service.UpdateNote(_id, textBox1.Text, textBox2.Text);
         }
     }
 }
