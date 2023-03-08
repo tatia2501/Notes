@@ -33,6 +33,11 @@ namespace Notes
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _service.DeleteNote(_id);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
         }
     }
 }
