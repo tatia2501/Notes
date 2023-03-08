@@ -24,15 +24,17 @@ namespace Notes
             _form = f;
         }
 
+        // the method executed when loading the form, outputs the title and text of the note
         private void Editor_Load(object sender, EventArgs e)
         {
             _id = InboxData;
             var note = _service.GetNote(_id);
 
-            this.textBox1.Text = note.Title;
-            this.textBox2.Text = note.Text;
+            textBox1.Text = note.Title;
+            textBox2.Text = note.Text;
         }
 
+        // the method of the "Удалить" button, deletes the note and closes the form
         private void button1_Click(object sender, EventArgs e)
         {
             _service.DeleteNote(_id);
@@ -40,6 +42,7 @@ namespace Notes
             Close();
         }
 
+        // the method of the "Сохранить" button, saves the changes in the note and closes the form
         private void button2_Click(object sender, EventArgs e)
         {
             _service.UpdateNote(_id, textBox1.Text, textBox2.Text);
