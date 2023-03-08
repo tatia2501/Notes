@@ -90,7 +90,7 @@ namespace Notes
             newForm.Show();
         }
 
-        public void UpdateAfterRemoval()
+        public void UpdateChanges()
         {
             Application.Restart();
         }
